@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const displayNextQuestionOrEndQuiz = () => {
-    if (currentQuestionIndex < 2) { 
+    if (currentQuestionIndex < 20) { 
       displayQuestion();
     } else {
       endQuiz();
