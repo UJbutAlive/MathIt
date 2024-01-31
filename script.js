@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     answerInput.style.display = 'none';
     submitBtn.style.display = 'none';
     timerElement.textContent = '';
-    const totalQuestions = 2; // Update with the total number of questions
+    const totalQuestions = 20; //total number of questions
     scoreContainer.textContent = `Your score is ${score} out of ${totalQuestions}`; // Display user's score out of total questions
 
     // Display incorrect answers
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const displayNextQuestionOrEndQuiz = () => {
-    if (currentQuestionIndex < 2) {
+    if (currentQuestionIndex < 20) {
       displayQuestion();
     } else {
       endQuiz();
