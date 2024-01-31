@@ -1,8 +1,4 @@
-body.dark-mode {
-  background-color: #333; /* Dark background color */
-  color: #fff; /* Light text color */
-}
-
+/* General Styles */
 
 body {
   font-family: Arial, sans-serif;
@@ -16,7 +12,7 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.dark-mode body {
+body.dark-mode {
   background-color: #333;
   color: #f4f4f4;
 }
@@ -26,6 +22,8 @@ body {
   width: 80%;
   text-align: center;
 }
+
+/* Question and Answer Styles */
 
 #question-container {
   margin-bottom: 20px;
@@ -39,6 +37,8 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
+
+/* Button Styles */
 
 #submit-btn {
   padding: 12px 24px;
@@ -73,4 +73,46 @@ body {
 
 #dark-mode-toggle:hover {
   background-color: #0056b3;
+}
+
+/* Incorrect Answers Styles */
+
+.incorrect-title {
+  color: red;
+}
+
+/* Try Again Button Styles */
+
+#try-again-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+#try-again-btn:hover {
+  background-color: #45a049;
+}
+
+/* Timer Styles */
+
+#timer {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  display: block;
+}
+
+body.dark-mode #timer {
+  color: #fff;
 }
