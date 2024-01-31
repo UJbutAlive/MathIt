@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tryAgainBtn = document.getElementById('try-again-btn');
   let timerElement = document.getElementById('timer');
   let currentQuestion = null; // Store the current question and its answer
+  const incorrectAnswers = []; // Array to store incorrect answers
 
   const generateRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -31,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     answerInput.value = '';
     answerInput.focus();
     startTimer();
+
+    // Disable submit button initially
+    submitBtn.disabled = true;
 
     // Enable submit button only when answerInput has a valid number
     answerInput.addEventListener('input', () => {
@@ -63,15 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const incorrectAnswers = [];
-
   const checkAnswer = (userAnswer) => {
     clearInterval(timer);
     const { question, answer } = currentQuestion; // Use the current question and its answer
     if (userAnswer === answer) {
       score += 1;
     } else {
-      incorrectAnswers.push({ question, userAnswer: userAnswer || 'Not attempted', correctAnswer: answer });
+      incorrectAnswers.push({ question, userAnswer, correctAnswer: answer });
     }
     currentQuestionIndex += 1;
     displayNextQuestionOrEndQuiz();
@@ -82,17 +84,19 @@ document.addEventListener('DOMContentLoaded', () => {
     answerInput.style.display = 'none';
     submitBtn.style.display = 'none';
     timerElement.textContent = '';
-    const totalQuestions = 20; //total number of questions
+    const totalQuestions = 10; // Update with the total number of questions
     scoreContainer.textContent = `Your score is ${score} out of ${totalQuestions}`; // Display user's score out of total questions
 
-    // Display incorrect answers
     if (incorrectAnswers.length > 0) {
-      const incorrectQuestions = document.createElement('div');
-      incorrectQuestions.innerHTML = '<h3 class="incorrect-title">Incorrect Answers:</h3>';
+      const incorrectAnswersList = document.createElement('div');
+      incorrectAnswersList.innerHTML = '<h3 class="incorrect-title">Incorrect Answers:</h3>'; // Apply class to incorrect title
       incorrectAnswers.forEach((incorrect) => {
-        incorrectQuestions.innerHTML += `<p>${incorrect.question} | Your Answer: ${incorrect.userAnswer} | Correct Answer: ${incorrect.correctAnswer}</p>`;
+        const { question, userAnswer, correctAnswer } = incorrect;
+        const listItem = document.createElement('p');
+        listItem.textContent = `${question} | Your Answer: ${userAnswer !== null ? userAnswer : 'Not attempted'} | Correct Answer: ${correctAnswer}`;
+        incorrectAnswersList.appendChild(listItem);
       });
-      scoreContainer.appendChild(incorrectQuestions);
+      scoreContainer.appendChild(incorrectAnswersList);
     }
 
     // Show try again button
@@ -100,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const displayNextQuestionOrEndQuiz = () => {
-    if (currentQuestionIndex < 20) {
+    if (currentQuestionIndex < 2) {
       displayQuestion();
     } else {
       endQuiz();
@@ -113,23 +117,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode'); 
-    // Update timer color based on dark mode
-    timerElement.style.color = document.body.classList.contains('dark-mode') ? '#fff' : '#333';
+    document.body.classList.toggle('dark-mode'); // Toggle the 'dark-mode' class on the body
   });
 
   tryAgainBtn.addEventListener('click', () => {
     // Reset quiz and start again
     currentQuestionIndex = 0;
     score = 0;
-    tryAgainBtn.style.display = 'none'; 
-    scoreContainer.textContent = ''; 
-    incorrectAnswers.length = 0; 
+    incorrectAnswers.length = 0; // Clear incorrect answers array
+    scoreContainer.innerHTML = ''; // Clear previous score and incorrect answers
+    tryAgainBtn.style.display = 'none'; // Hide try again button
+    answerInput.style.display = 'block'; // Show answer input
+    submitBtn.style.display = 'block'; // Show submit button
     displayQuestion();
-
-    // Reset styles for answer input and submit button
-    answerInput.style.display = 'block';
-    submitBtn.style.display = 'block';
   });
 
   // Initial display of the first question
