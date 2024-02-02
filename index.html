@@ -7,17 +7,50 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="quiz-container">
-    <h1>MathIt</h1>
-    <h2>Can you win? 20 questions where for each question you got 60 seconds.</h2>
-    <div id="question-container"></div>
-    <input type="text" id="answer-input" placeholder="Enter your answer">
-    <button id="submit-btn">Submit</button>
-    <div id="timer"></div>
-    <div id="score-container"></div>
-    <button id="dark-mode-toggle">Toggle Dark Mode</button>
-    <button id="try-again-btn" style="display: none;">Try Again</button>
+  <div class= "container">
+    <h1>Welcome to MathIt!!</h1>
+    <h2>Please choose your mission</h2>
+
+    <div class= "dropdowns">
+  <div class="dropdown">
+    <button class="dropbtn easy">Easy 😀</button>
+    <div class="dropdown-content">
+      <p>Start the quiz with addition and subtraction between 2 numbers of 2 digits. 10 questions with 60 seconds for each question.</p>
+      <button onclick="startGame('easy')">Start Game</button>
+    </div>
   </div>
-  <script src="script.js"></script>
-</body>
-</html>
+  <div class="dropdown">
+    <button class="dropbtn medium">Medium 😎</button>
+    <div class="dropdown-content">
+      <p>Start the quiz with addition and subtraction between 2 numbers of 3 digits. 20 questions with 30 seconds for each question.</p>
+      <button onclick="startGame('medium')">Start Game</button>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn hard">Hard 🤯</button>
+    <div class="dropdown-content">
+      <p>Start the quiz with addition, multiplication, and subtraction between 2 numbers of 3 digits. 20 questions with 60 seconds for each question.</p>
+      <button onclick="startGame('hard')">Start Game</button>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn super-hard">Super Hard 💀</button>
+    <div class="dropdown-content">
+      <p>Start the quiz with addition, multiplication, division and subtraction between 2 numbers of 3 digits. 20 questions with 30 seconds for each question.</p>
+      <button onclick="startGame('superhard')">Start Game</button>
+    </div>
+  </div>
+  <div class="dropdown">
+    <button class="dropbtn overkill" disabled>Overkill ☠️</button>
+    <div class="dropdown-content">
+      <p>Start the quiz with addition, multiplication, and subtraction between 3 numbers of 4 digits. 20 questions with 30 seconds for each question. Will be added soon..</p>
+      <button disabled>Start Game</button>
+    </div>
+  </div>
+    </div>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
