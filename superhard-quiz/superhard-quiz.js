@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (operator === '/') {
       // Generate a division question with limited decimal places
       const dividend = generateRandomNumber(1, 1000);
-      const divisor = generateRandomNumber(1, 10); // Limiting divisor to 2 digits for simplicity
+      const divisor = generateRandomNumber(2, 10); // Limiting divisor to 2 digits for simplicity
       question = `${dividend} ${operator} ${divisor}`;
       answer = (dividend / divisor).toFixed(2); // Limiting answer to 2 decimal places
     } else {
@@ -80,21 +80,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const checkAnswer = (userAnswer) => {
     clearInterval(timer);
     const { question, answer } = currentQuestion; // Use the current question and its answer
-    if (userAnswer === answer) {
+    let formattedUserAnswer = userAnswer;
+    if (typeof userAnswer === 'string') {
+      formattedUserAnswer = parseFloat(userAnswer);
+    }
+    const isDecimalAnswer = answer % 1 !== 0; // Check if the correct answer is a decimal
+    const formattedCorrectAnswer = isDecimalAnswer ? parseFloat(answer).toFixed(2) : answer; // Format correct answer to two decimal places if it's a decimal
+    formattedUserAnswer = isDecimalAnswer ? formattedUserAnswer.toFixed(2) : formattedUserAnswer; // Format user's answer to two decimal places if it's a decimal
+    if (formattedUserAnswer == formattedCorrectAnswer) { // Use loose equality (==) to compare since we're dealing with strings and numbers
       score += 1;
     } else {
-      incorrectAnswers.push({ question, userAnswer, correctAnswer: answer });
+      incorrectAnswers.push({ question, userAnswer: formattedUserAnswer, correctAnswer: formattedCorrectAnswer });
     }
     currentQuestionIndex += 1;
     displayNextQuestionOrEndQuiz();
   };
+
+
 
   const endQuiz = () => {
     questionContainer.textContent = '';
     answerInput.style.display = 'none';
     submitBtn.style.display = 'none';
     timerElement.textContent = '';
-    const totalQuestions = 20; // Update with the total number of questions
+    const totalQuestions = 20; 
     scoreContainer.textContent = `Your score is ${score} out of ${totalQuestions}`; // Display user's score out of total questions
 
     if (incorrectAnswers.length > 0) {
