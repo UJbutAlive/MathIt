@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const isDecimalAnswer = answer % 1 !== 0; // Check if the correct answer is a decimal
     const formattedCorrectAnswer = isDecimalAnswer ? parseFloat(answer).toFixed(2) : answer; // Format correct answer to two decimal places if it's a decimal
-    formattedUserAnswer = isDecimalAnswer ? formattedUserAnswer.toFixed(2) : formattedUserAnswer; // Format user's answer to two decimal places if it's a decimal
+    formattedUserAnswer = isDecimalAnswer ? parseFloat(formattedUserAnswer).toFixed(2) : formattedUserAnswer; // Format user's answer to two decimal places if it's a decimal
     if (formattedUserAnswer == formattedCorrectAnswer) { // Use loose equality (==) to compare since we're dealing with strings and numbers
       score += 1;
     } else {
@@ -95,8 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
     currentQuestionIndex += 1;
     displayNextQuestionOrEndQuiz();
   };
-
-
 
   const endQuiz = () => {
     questionContainer.textContent = '';
@@ -120,7 +118,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show home button
     homeBtn.style.display = 'block';
-  };
+
+    if (score === totalQuestions) {
+      const congratsMessage = document.createElement('p');
+      congratsMessage.textContent = 'Congrats on getting all the questions right!! Welcome to the cool gang 🎉';
+
+      const imageLink = document.createElement('a');
+      imageLink.href = 'https://cdn.discordapp.com/emojis/1043716338079768646.webp?size=128&quality=lossless'; // Replace with the actual path to your image
+      imageLink.target = '_blank'; // Open link in a new tab
+      const emojiImage = document.createElement('img');
+      emojiImage.src = 'https://cdn.discordapp.com/emojis/1043716338079768646.webp?size=128&quality=lossless'; // Replace with the actual path to your image
+      emojiImage.alt = 'Cool emoji';
+      emojiImage.style.width = '30px'; // Adjust the size as needed
+
+      imageLink.appendChild(emojiImage);
+      scoreContainer.appendChild(congratsMessage);
+      scoreContainer.appendChild(imageLink);
+    }
+    };
 
   const displayNextQuestionOrEndQuiz = () => {
     if (currentQuestionIndex < 20) {
@@ -147,3 +162,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial display of the first question
   displayQuestion();
 });
+
